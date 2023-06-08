@@ -44,7 +44,6 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   }
 
   imgLoaded(){
-    console.log('Loaded Log hijo');
     this.loaded.emit(this.img);   
   }
 
