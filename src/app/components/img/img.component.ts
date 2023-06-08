@@ -10,29 +10,24 @@ export class ImgComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy
   constructor(){
     //Before render
     //Noasync --once time
-    console.log('Constructor', 'imgValue => ', this.img);
   }
   ngOnDestroy(): void {
     //delete component
-    console.log('ngOnDestroy');
   }
 
   ngAfterViewInit(): void {
     //After render
-    //handler children
-    console.log('AfterViewInit'); 
+    //handler children 
   }
 
   ngOnInit():void {
     //Before render
     //async -fetch --once time
-    console.log('OnInit', 'imgValue => ', this.img);
   }
 
   ngOnChanges(){
     //before - during render
-    //changes inputs --times
-    console.log('OnChanges', 'imgValue => ', this.img);    
+    //changes inputs --times  
   }
 
   @Input() img: string = '';
