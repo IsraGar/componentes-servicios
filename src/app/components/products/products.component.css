@@ -1,8 +1,29 @@
+@import '../../../../node_modules/swiper/swiper.min.css';
+@import '../../../../node_modules/swiper/modules/pagination/pagination.min.css';
+@import '../../../../node_modules/swiper/modules/navigation/navigation.min.css';
+
 .products--grid{
     display: flex;
     flex-direction: column;
 }
 
+.product-detail{
+    position: fixed;
+    top: 0;
+    left: 60%;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: all ease-in-out .5s;
+    transform: translateX(100%);
+}
+
+.product-detail.active{
+    transform: translateX(0);
+}
 
 /* Tablets */
 @media screen and (min-width: 40em) and (max-width: 63.9em){
