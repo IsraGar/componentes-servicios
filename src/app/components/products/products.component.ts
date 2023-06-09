@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { Product, CretateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 import { register } from 'swiper/element/bundle';
@@ -66,6 +66,21 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         this.productChosen = data;        
       }
     );    
+  }
+
+  createNewProduct(){
+    const product: CretateProductDTO = {
+      title: 'Nuevo Producto',
+      price: 444,
+      images: [''],
+      description: 'Nuevo producto desde el TS',
+      categoryId: 1
+    }
+    this.productsService.createProduct(product)
+    .subscribe(data => {
+      console.log(data);
+      this.products.unshift(data);    
+    });
   }
 
 }
