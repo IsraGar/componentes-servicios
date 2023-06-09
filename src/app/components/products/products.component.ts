@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Product, CretateProductDTO } from '../../models/product.model';
+import { Product, CretateProductDTO, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 import { register } from 'swiper/element/bundle';
@@ -63,7 +63,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     this.productsService.getProduct(id).subscribe(
       data => {
         this.toggleProductDetail();
-        this.productChosen = data;        
+        this.productChosen = data;          
       }
     );    
   }
@@ -82,5 +82,19 @@ export class ProductsComponent implements OnInit, AfterViewInit {
       this.products.unshift(data);    
     });
   }
+
+  updateProduct(){
+    const changes: UpdateProductDTO = {
+      title: 'Nuevo titulo'
+    }
+    const id = this.productChosen.id;
+    this.productsService.updateProduct(id, changes)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products[productIndex] = data;
+      this.productChosen = data;
+    });
+  }
+
 
 }
