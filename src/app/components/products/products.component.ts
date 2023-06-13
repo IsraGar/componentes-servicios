@@ -4,6 +4,7 @@ import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 import { register } from 'swiper/element/bundle';
 import { Swiper } from 'swiper/types';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -35,6 +36,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   limit = 10;
   offset = 0;
+
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
  
   constructor(private storeService: StoreService,
               private productsService: ProductsService){
@@ -60,12 +63,21 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
   onShowDetail(id: string){
+    this.statusDetail = 'loading';
     this.productsService.getProduct(id).subscribe(
       data => {
         this.toggleProductDetail();
-        this.productChosen = data;          
+        this.productChosen = data;
+        this.statusDetail = 'success';        
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error
+        })
+        this.statusDetail = 'error';
       }
-    );    
+    );
   }
 
   createNewProduct(){

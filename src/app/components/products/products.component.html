@@ -1,5 +1,6 @@
 <button (click)="toggleProductDetail()">Show</button>
 <button (click)="createNewProduct()">Create</button>
+<button (click)="onShowDetail('123243')">Detail not Found</button>
 <div class="products--grid">
     <app-product [product]="product" *ngFor="let product of products"
     (addProduct)="onAddToShoppingCart($event)"
