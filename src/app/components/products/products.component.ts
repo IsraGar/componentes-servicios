@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { switchMap } from 'rxjs/operators'
 import { Product, CretateProductDTO, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -78,6 +79,17 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         this.statusDetail = 'error';
       }
     );
+  }
+
+  readAndUpdate(id: string){
+    this.productsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.productsService.updateProduct(product.id, {title: 'change'})),
+      // switchMap((product) => this.productsService.updateProduct(product.id, {title: 'change'}))
+    )
+    .subscribe(data => {
+      console.log(data);      
+    })
   }
 
   createNewProduct(){
