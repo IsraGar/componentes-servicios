@@ -8,6 +8,8 @@ import { UsersService } from './services/users.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+
+  token = '';
   
   constructor(
     private authService: AuthService,
@@ -34,8 +36,16 @@ export class AppComponent implements OnInit{
   login(){
     this.authService.login("isragarcia@mail.com", "123456")
     .subscribe(rta => {
-      console.log(rta.access_token);      
+      console.log(rta.access_token);
+      this.token = rta.access_token;   
     })
+  }
+
+  getProfile(){
+    this.authService.profile(this.token)
+    .subscribe(profile => {
+      console.log(profile);      
+    });
   }
 
 }

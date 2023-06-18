@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../../services/store.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user.mode';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nav',
@@ -10,8 +13,17 @@ export class NavComponent implements OnInit{
 
   activeMenu: boolean = false;
   counter: number = 0;
+  token = '';
+  profile: User = {
+    id: '',
+    email: '',
+    password: '',
+    name: ''
+  }
 
-  constructor(private storeService: StoreService){
+  constructor(
+    private storeService: StoreService,
+    private authService : AuthService){
 
   }
 
@@ -25,6 +37,21 @@ export class NavComponent implements OnInit{
 
   toggleMenu(){       
     this.activeMenu = !this.activeMenu;
+  }
+
+  login(){
+    this.authService.login('isragarcia@mail.com', '123456')
+    .subscribe(rta => {
+      this.token = rta.access_token;
+      this.getProfile();
+    })
+  }
+
+  getProfile(){
+    this.authService.profile(this.token)
+    .subscribe(user => {
+      this.profile = user;
+    })
   }
 
 }
