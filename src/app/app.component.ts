@@ -42,7 +42,7 @@ export class AppComponent implements OnInit{
   }
 
   getProfile(){
-    this.authService.profile(this.token)
+    this.authService.profile()
     .subscribe(profile => {
       console.log(profile);      
     });

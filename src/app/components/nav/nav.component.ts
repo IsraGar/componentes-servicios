@@ -48,7 +48,7 @@ export class NavComponent implements OnInit{
   }
 
   getProfile(){
-    this.authService.profile(this.token)
+    this.authService.profile()
     .subscribe(user => {
       this.profile = user;
     })

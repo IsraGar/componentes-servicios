@@ -8,4 +8,14 @@ import { environment } from './../../environments/environment';
 export class TokenService {
 
   constructor() { }
+
+  saveToken(token: string){
+    localStorage.setItem('token', token);
+  }
+
+  getToken(){
+    const token = localStorage.getItem('token');
+    return token;
+  }
+
 }
