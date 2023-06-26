@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
+import { FilesService } from './services/files.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit{
   
   constructor(
     private authService: AuthService,
-    private userService: UsersService
+    private userService: UsersService,
+    private fileService: FilesService
   ){
 
   }
@@ -46,6 +48,11 @@ export class AppComponent implements OnInit{
     .subscribe(profile => {
       console.log(profile);      
     });
+  }
+
+  downloadPDF(){
+    console.log('Hola');    
+    this.fileService.getFile('my-pdf', 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf', 'application/pdf').subscribe();
   }
 
 }
