@@ -11,6 +11,7 @@ import { FilesService } from './services/files.service';
 export class AppComponent implements OnInit{
 
   token = '';
+  imgRta = '';
   
   constructor(
     private authService: AuthService,
@@ -53,6 +54,18 @@ export class AppComponent implements OnInit{
   downloadPDF(){
     console.log('Hola');    
     this.fileService.getFile('my-pdf', 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf', 'application/pdf').subscribe();
+  }
+
+  onUpload(event : Event){
+    const element = event.target as HTMLInputElement;
+    const file = element.files?.item(0);
+    if(file){
+      this.fileService.uploadFile(file)
+      .subscribe(rta => {
+        this.imgRta = rta.location;
+      });
+    }
+    
   }
 
 }
